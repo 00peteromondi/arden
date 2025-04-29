@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+.alert {
+  padding: 5px !important;
+  background-color: hsl(210, 14%, 53%, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+  border-radius: 0px !important;
+  border: none !important;
+  z-index: 1000 !important;
+}
+.navbar {
+  background-color: hsl(210, 14%, 53%, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+  z-index: 1000 !important;
+}
+.navbar .nav-link {
+  color: black !important;
+  letter-spacing: 0.08rem;
+  font-size: small;
+  font-weight: lighter !important;
+  font-family: "Nunito", sans-serif;
+  border-radius: 8px;
+  margin: 5px;
+}
+.navbar .nav-link:hover {
+  background: linear-gradient(
+    200deg,
+    hsl(210, 14%, 53%, 0.3),
+    hsl(210, 14%, 53%, 0.5),
+    hsl(43, 74%, 49%, 0.4)
+  );
+  animation: backgroundFade 1s ease-in-out;
+}
+
+@keyframes backgroundFade {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 50% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+.navbar .nav-link::after {
+  content: "";
+  display: block;
+  height: 2px;
+  background-color: hsl(43, 74%, 49%, 0.8);
+  width: 0;
+  margin: 0 auto;
+  transition: width 0.5s ease-in-out;
+}
+
+.navbar .nav-link:hover::after {
+  width: 100%;
+}
+.navbar .nav-logo {
+  color: black !important;
+  font-size: 13px;
+  text-transform: uppercase;
+  font-weight: 300 !important;
+  align-content: first baseline;
+  font-family: "Nunito", sans-serif;
+}
