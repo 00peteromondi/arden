@@ -1,144 +1,140 @@
-import React, { useState, useEffect, useRef } from "react";
-import "../css/Chatwidget.css"; // Add styles for the widget
-import CustomerSupport from "../../customer-support-chat-2-svgrepo-com.svg";
-import CustomerCare from "../../customer-service-hotel-svgrepo-com.svg";
+import React, { useEffect, useRef, useState } from "react";
+import "../css/Chatwidget.css";
+
+const initialMessages = [
+  {
+    id: 1,
+    sender: "bot",
+    text: "Welcome to Luguma Constructions Limited. Share your product request, equipment need, or project requirement and the enquiry can be guided from there.",
+  },
+];
+
+const cannedResponses = [
+  "You can share the product type, expected quantity, and project location to begin a more useful enquiry.",
+  "If your request is about machine hire, include the site activity and preferred mobilisation timing.",
+  "If you are comparing options, start with the service or product section and then continue through the contact area.",
+];
 
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(initialMessages);
   const [input, setInput] = useState("");
-  const [isScrolledUp, setIsScrolledUp] = useState(false);
-  const [newMessageCount, setNewMessageCount] = useState(0);
-  const messagesEndRef = useRef(null); // Ref to track the end of the messages container
-  const messagesContainerRef = useRef(null); // Ref to track the messages container
+  const [responseIndex, setResponseIndex] = useState(0);
+  const [isLauncherVisible, setIsLauncherVisible] = useState(false);
+  const messagesEndRef = useRef(null);
+  const lastScrollY = useRef(0);
 
   const toggleChat = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((current) => !current);
   };
 
-  const handleSendMessage = () => {
-    if (input.trim()) {
-      setMessages((prevMessages) => {
-        const newMessages = [...prevMessages, { text: input, sender: "user" }];
-        return newMessages.slice(-50); // Limit the number of visible messages to 50
-      });
-      setInput("");
-
-      // Simulate bot response
-      setTimeout(() => {
-        setMessages((prevMessages) => {
-          const newMessages = [
-            ...prevMessages,
-            {
-              text: "Hello! Welcome to Arden Constructions Limited. One of our agents will be with you shortly...",
-              sender: "bot",
-            },
-          ];
-          return newMessages.slice(-50); // Limit the number of visible messages to 50
-        });
-        if (isScrolledUp) {
-          setNewMessageCount((count) => count + 1);
-        }
-      }, 1000);
-    }
-  };
-
-  // Scroll to the latest message
   const scrollToBottom = () => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-    setIsScrolledUp(false);
-    setNewMessageCount(0);
-  };
-
-  // Detect if the user has scrolled up
-  const handleScroll = () => {
-    if (messagesContainerRef.current) {
-      const { scrollTop, scrollHeight, clientHeight } =
-        messagesContainerRef.current;
-      const isAtBottom = scrollTop + clientHeight >= scrollHeight - 10;
-      setIsScrolledUp(!isAtBottom);
-      if (isAtBottom) {
-        setNewMessageCount(0);
-      }
-    }
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
-    if (!isScrolledUp) {
+    if (isOpen) {
       scrollToBottom();
     }
-  }, [messages, isScrolledUp]);
+  }, [messages, isOpen]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const scrollingUp = currentScrollY < lastScrollY.current;
+      const shouldShow = currentScrollY > 260 && (scrollingUp || currentScrollY > 720);
+
+      setIsLauncherVisible(shouldShow || isOpen);
+      lastScrollY.current = currentScrollY;
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isOpen]);
+
+  const handleSendMessage = () => {
+    const trimmedValue = input.trim();
+
+    if (!trimmedValue) {
+      return;
+    }
+
+    setMessages((current) => [
+      ...current,
+      { id: Date.now(), sender: "user", text: trimmedValue },
+    ]);
+    setInput("");
+
+    window.setTimeout(() => {
+      setMessages((current) => [
+        ...current,
+        {
+          id: Date.now() + 1,
+          sender: "bot",
+          text: cannedResponses[responseIndex % cannedResponses.length],
+        },
+      ]);
+      setResponseIndex((current) => current + 1);
+    }, 650);
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleSendMessage();
+    }
+  };
 
   return (
-    <div className="chat-widget">
-      {!isOpen && (
-        <div>
-          <button className="chat-toggle" onClick={toggleChat}>
-            <img
-              src={CustomerSupport}
-              alt="Chat Icon"
-              className="chat-icon"
-              height={40}
-              width={40}
-            />
-            {"  "}Chat with us
-          </button>
-        </div>
-      )}
-      {isOpen && (
-        <div className="chat-box">
+    <div className={`chat-widget ${isLauncherVisible || isOpen ? "is-visible" : ""}`}>
+      {!isOpen ? (
+        <button type="button" className="chat-toggle" onClick={toggleChat}>
+          <span className="chat-toggle__icon">
+            <i className="bi bi-chat-dots-fill" aria-hidden="true" />
+          </span>
+          <span>
+            <strong>Talk to Luguma</strong>
+            <small>For product and equipment enquiries</small>
+          </span>
+        </button>
+      ) : (
+        <section className="chat-box" aria-label="Chat support">
           <div className="chat-header">
-            <img
-              src={CustomerCare}
-              alt="Chat Icon"
-              className="chat-icon"
-              height={30}
-              width={30}
-            />
-            {"  "}Chat Support
-            <button className="chat-close" onClick={toggleChat}>
+            <div>
+              <strong>Luguma Enquiry Desk</strong>
+              <small>For products, machine hire, and request guidance</small>
+            </div>
+            <button type="button" className="chat-close" onClick={toggleChat}>
               <span>&#x2715;</span>
             </button>
           </div>
-          <div
-            className="chat-messages mb-1"
-            ref={messagesContainerRef}
-            onScroll={handleScroll}
-          >
-            {messages.map((msg, index) => (
+          <div className="chat-messages">
+            {messages.map((message) => (
               <div
-                key={index}
+                key={message.id}
                 className={`chat-message ${
-                  msg.sender === "user" ? "user" : "bot"
+                  message.sender === "user" ? "user" : "bot"
                 }`}
               >
-                {msg.text}
+                {message.text}
               </div>
             ))}
-            {/* Invisible div to track the end of the messages */}
             <div ref={messagesEndRef} />
           </div>
-          {isScrolledUp && newMessageCount > 0 && (
-            <button className="scroll-to-bottom" onClick={scrollToBottom}>
-              {newMessageCount} New Message{newMessageCount > 1 ? "s" : ""}
-            </button>
-          )}
           <div className="chat-input">
-            <div className="input-container">
-              <input
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Type your message..."
-              />
-              <button onClick={handleSendMessage} className="send-icon">
-                <span>&#x27A4;</span> {/* Unicode for a right arrow icon */}
-              </button>
-            </div>
+            <input
+              type="text"
+              value={input}
+              onChange={(event) => setInput(event.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Describe your request"
+            />
+            <button type="button" onClick={handleSendMessage} className="send-icon">
+              Send
+            </button>
           </div>
-        </div>
+        </section>
       )}
     </div>
   );

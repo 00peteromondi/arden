@@ -1,13 +1,63 @@
+:root {
+  --page-bg: #ece9e2;
+  --page-bg-soft: #d7d2c8;
+  --surface-base: rgba(255, 255, 255, 0.76);
+  --surface-strong: rgba(255, 255, 255, 0.92);
+  --surface-muted: rgba(95, 90, 83, 0.08);
+  --brand-gold: #ffb126;
+  --brand-gold-soft: #ffd56a;
+  --brand-orange: #f57b1f;
+  --brand-blue: #2e4fb5;
+  --ink-strong: #22201d;
+  --ink-body: #413d38;
+  --ink-soft: #6c665f;
+  --line-soft: rgba(69, 62, 54, 0.12);
+  --shadow-soft: 0 18px 44px rgba(58, 48, 38, 0.12);
+  --text-primary: #22201d;
+  --text-secondary: #4d4842;
+  --text-muted: #6f675f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  min-width: 320px;
+  background:
+    radial-gradient(circle at top, rgba(255, 177, 38, 0.12), transparent 24%),
+    linear-gradient(180deg, #f3f1ec, var(--page-bg) 34%, var(--page-bg-soft));
+  color: var(--text-primary);
+  font-family: "Manrope", "Segoe UI", "Trebuchet MS", Verdana, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+a,
+button,
+input {
+  transition: all 0.2s ease;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+#root {
+  min-height: 100vh;
 }

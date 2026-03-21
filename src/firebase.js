@@ -1,4 +1,4 @@
-// filepath: /home/adallapete/ardenconstructions/src/firebase.js
+// Firebase configuration module for the Luguma Constructions Limited app.
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 

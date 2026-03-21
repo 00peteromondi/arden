@@ -1,51 +1,36 @@
-import React, { useState, useEffect } from "react";
-import "../css/Hero.css";
+import React, { useEffect, useMemo, useState } from "react";
 
 const HeroAlerts = () => {
-  const phrases = React.useMemo(
+  const phrases = useMemo(
     () => [
-      "On site transportation available with us!",
-      "Quality construction material at affordable prices.",
-      "Guaranteed value for money and customer satisfaction.",
-      "Expert team delivering projects on time, every time.",
-      "Eco-friendly solutions for sustainable construction.",
-      "Innovative designs tailored to your unique needs.",
+      "Luguma Concrete Products support clients looking for quality, strength, and dependable production service.",
+      "Machine hire enquiries can now move more directly from interest to action through a clearer contact path.",
+      "Concrete products, site support, and project-related requests are presented more clearly for prospective clients.",
+      "The page now gives customers a more direct route into products, services, and project support.",
     ],
     []
   );
 
-  const [currentPhrase, setCurrentPhrase] = useState(phrases[0]);
   const [index, setIndex] = useState(0);
   const [fadeClass, setFadeClass] = useState("fade-in");
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setFadeClass("fade-out"); // Start fade-out animation
-      setTimeout(() => {
-        setIndex((prevIndex) => (prevIndex + 1) % phrases.length);
-        setFadeClass("fade-in"); // Start fade-in animation
-      }, 500); // Duration of fade-out animation
-    }, 10000); // Change phrase every 10 seconds
+    const interval = window.setInterval(() => {
+      setFadeClass("fade-out");
 
-    return () => clearInterval(interval);
+      window.setTimeout(() => {
+        setIndex((current) => (current + 1) % phrases.length);
+        setFadeClass("fade-in");
+      }, 250);
+    }, 5000);
+
+    return () => window.clearInterval(interval);
   }, [phrases.length]);
 
-  useEffect(() => {
-    setCurrentPhrase(phrases[index]);
-  }, [index, phrases]);
-
   return (
-    <div
-      className={`hero-alert mt-4 ${fadeClass}`}
-      style={{
-        textAlign: "center",
-        fontSize: "1rem",
-        backgroundColor: "rgb(218, 165, 32, 0.5)",
-        padding: "8px",
-        borderRadius: "5px",
-      }}
-    >
-      <p className="hero-phrases">{currentPhrase}</p>
+    <div className={`hero-alert ${fadeClass}`} aria-live="polite">
+      <span className="hero-alert__label">Now delivering</span>
+      <p className="hero-phrases">{phrases[index]}</p>
     </div>
   );
 };

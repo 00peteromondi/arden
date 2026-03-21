@@ -1,103 +1,125 @@
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import "../css/Navbar.css"; // Import your custom CSS file
-import navlogo from "../../crane-svgrepo-com.svg";
+import React, { useEffect, useRef, useState } from "react";
+import "../css/Navbar.css";
+import brandMark from "../../luguma-brandmark.svg";
+
+const navLinks = [
+  { label: "About", href: "#about", icon: "bi-buildings" },
+  { label: "Services", href: "#services", icon: "bi-grid-1x2-fill" },
+  { label: "Products", href: "#products", icon: "bi-box-seam" },
+  { label: "Equipment", href: "#equipment", icon: "bi-truck" },
+  { label: "Process", href: "#process", icon: "bi-diagram-3-fill" },
+  { label: "Contact", href: "#contact", icon: "bi-envelope-paper-fill" },
+];
+
+const quickFacts = [
+  { icon: "bi-bricks", label: "Precast products" },
+  { icon: "bi-truck-front-fill", label: "Equipment movement" },
+  { icon: "bi-clipboard2-check-fill", label: "Project requests" },
+];
 
 function MyNavbar() {
-  return (
-    <>
-      <div className="alert alert-light text-center mb-0" role="alert">
-        <a
-          href="https://facebook.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mx-2"
-        >
-          <i className="fab fa-facebook" style={{ color: "#3b5998" }}></i>
-        </a>
-        <a
-          href="https://twitter.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mx-2"
-        >
-          <i className="fab fa-x-twitter" style={{ color: "#000000" }}></i>
-        </a>
-        <a
-          href="https://instagram.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mx-2"
-        >
-          <i className="fab fa-instagram" style={{ color: "#E4405F" }}></i>
-        </a>
-        <a
-          href="https://linkedin.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mx-2"
-        >
-          <i className="fab fa-linkedin" style={{ color: "#0077b5" }}></i>
-        </a>
-        <a
-          href="https://youtube.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mx-2"
-        >
-          <i className="fab fa-youtube" style={{ color: "#FF0000" }}></i>
-        </a>
-        <a
-          href="https://pinterest.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mx-2"
-        >
-          <i className="fab fa-pinterest" style={{ color: "#E60023" }}></i>
-        </a>
-        <a
-          href="https://tiktok.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mx-2"
-        >
-          <i className="fab fa-tiktok" style={{ color: "#000000" }}></i>
-        </a>
-      </div>
-      <Navbar bg="dark" expand="lg" data-bs-theme="dark">
-        <Container>
-          <Navbar.Brand href="#home" className="nav-logo">
-            <img
-              src={navlogo}
-              alt="Logo"
-              width="40"
-              height="40"
-              className="d-inline-block align-top me-2"
-            />
-            <small>
-              <sub>
-                <strong>Arden </strong>
-              </sub>
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const menuPanelRef = useRef(null);
 
-              <sub> Constructions Limited</sub>
-            </small>
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ms-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#features">About Us</Nav.Link>
-              <Nav.Link href="#pricing">Services</Nav.Link>
-              <Nav.Link href="#pricing">Our Products</Nav.Link>
-              <Nav.Link href="#pricing">Projects</Nav.Link>
-              <Nav.Link href="#pricing">Arden Jobs</Nav.Link>
-              <Nav.Link href="#pricing">Contact Us</Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-    </>
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 24);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? "hidden" : "";
+
+    if (isMenuOpen && menuPanelRef.current) {
+      menuPanelRef.current.scrollTop = 0;
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
+
+  return (
+    <header className={`site-header ${isScrolled ? "is-scrolled" : ""}`}>
+      <div className="utility-bar" aria-label="Service highlights">
+        {quickFacts.map((fact) => (
+          <div className="utility-pill" key={fact.label}>
+            <i className={`bi ${fact.icon}`} aria-hidden="true" />
+            <span>{fact.label}</span>
+          </div>
+        ))}
+      </div>
+
+      <nav className="site-nav" aria-label="Primary navigation">
+        <a className="brand" href="#home" onClick={() => setIsMenuOpen(false)}>
+          <img
+            src={brandMark}
+            alt="Luguma Constructions Limited logo"
+            className="brand__logo"
+          />
+          <span className="brand__text">
+            <strong>Luguma Constructions Limited</strong>
+            <small>Precast concrete products, machine hire, and project enquiries</small>
+          </span>
+        </a>
+
+        <button
+          type="button"
+          className={`nav-toggle ${isMenuOpen ? "is-open" : ""}`}
+          aria-expanded={isMenuOpen}
+          aria-label="Toggle navigation menu"
+          onClick={() => setIsMenuOpen((current) => !current)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+
+        <div className={`nav-links ${isMenuOpen ? "is-open" : ""}`}>
+          <div className="nav-links__panel" ref={menuPanelRef}>
+            <div className="nav-links__top">
+              <span>Explore Luguma</span>
+              <button
+                type="button"
+                className="nav-links__close"
+                aria-label="Close navigation menu"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <i className="bi bi-x-lg" aria-hidden="true" />
+              </button>
+            </div>
+
+            <div className="nav-links__items">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="nav-link"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <i className={`bi ${link.icon}`} aria-hidden="true" />
+                  <span>{link.label}</span>
+                </a>
+              ))}
+            </div>
+
+            <a
+              href="#contact"
+              className="nav-cta"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Request a Quote
+            </a>
+          </div>
+        </div>
+      </nav>
+    </header>
   );
 }
 

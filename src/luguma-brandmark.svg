@@ -1,0 +1,38 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sunset" x1="96" y1="72" x2="412" y2="440" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFD56A"/>
+      <stop offset="0.45" stop-color="#FF9F1A"/>
+      <stop offset="1" stop-color="#D35A14"/>
+    </linearGradient>
+    <linearGradient id="steel" x1="88" y1="36" x2="416" y2="476" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#49484E"/>
+      <stop offset="1" stop-color="#1C2333"/>
+    </linearGradient>
+    <linearGradient id="ground" x1="182" y1="270" x2="356" y2="412" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE086"/>
+      <stop offset="1" stop-color="#FF8E1C"/>
+    </linearGradient>
+  </defs>
+  <circle cx="256" cy="256" r="240" fill="url(#steel)" stroke="#2E4FB5" stroke-width="10"/>
+  <circle cx="256" cy="256" r="220" stroke="#FF9F1A" stroke-width="10"/>
+  <path d="M96 210C96 126.053 164.053 58 248 58H264C347.947 58 416 126.053 416 210V232H96V210Z" fill="url(#sunset)"/>
+  <circle cx="272" cy="120" r="32" fill="#FFF7DA"/>
+  <path d="M120 176C136 154 152 144 176 146C194 147.5 210 156 224 176H120Z" fill="#FFF4C7" fill-opacity="0.9"/>
+  <path d="M294 182C312 162 330 152 354 153C376 154 394 164 410 182H294Z" fill="#FFF4C7" fill-opacity="0.9"/>
+  <path d="M108 232H404V276C404 344.484 348.484 400 280 400H232C163.516 400 108 344.484 108 276V232Z" fill="url(#ground)"/>
+  <path d="M150 300H362" stroke="#493E42" stroke-width="18" stroke-linecap="round"/>
+  <path d="M164 286L216 246H310L344 274V310H164V286Z" fill="#2E2F36" stroke="#493E42" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M206 246L224 178H320L310 246H206Z" fill="url(#sunset)" stroke="#493E42" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M320 178L338 246" stroke="#493E42" stroke-width="8" stroke-linecap="round"/>
+  <path d="M178 250L158 218L176 204L202 240" fill="#D35A14" stroke="#493E42" stroke-width="8" stroke-linejoin="round"/>
+  <rect x="320" y="224" width="56" height="52" rx="8" fill="#FF9F1A" stroke="#493E42" stroke-width="8"/>
+  <rect x="330" y="234" width="28" height="24" rx="4" fill="#5B6472"/>
+  <circle cx="206" cy="324" r="26" fill="#1C2333" stroke="#FF9F1A" stroke-width="8"/>
+  <circle cx="206" cy="324" r="9" fill="#FFE086"/>
+  <circle cx="332" cy="324" r="26" fill="#1C2333" stroke="#FF9F1A" stroke-width="8"/>
+  <circle cx="332" cy="324" r="9" fill="#FFE086"/>
+  <path d="M104 338C132 312 166 298 206 296H334C362 296 392 308 408 330V392H104V338Z" fill="#2E2F36"/>
+  <path d="M104 392H408V418C408 428.493 399.493 437 389 437H123C112.507 437 104 428.493 104 418V392Z" fill="#3A3B42"/>
+  <text x="256" y="428" fill="#FFB126" font-family="Arial, sans-serif" font-size="40" font-weight="700" text-anchor="middle">LUGUMA</text>
+</svg>
