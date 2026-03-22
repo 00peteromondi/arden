@@ -1,11 +1,12 @@
 import React from "react";
 import "../css/Footer.css";
-import brandMark from "../../luguma-brandmark.svg";
+import brandMark from "../../Lugumalogo.jpeg";
 
 const quickLinks = [
   { label: "About Luguma", href: "#about" },
   { label: "Services", href: "#services" },
   { label: "Products", href: "#products" },
+  { label: "Gallery", href: "#gallery" },
   { label: "Equipment", href: "#equipment" },
   { label: "Process", href: "#process" },
   { label: "Contact", href: "#contact" },

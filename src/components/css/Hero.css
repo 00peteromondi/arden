@@ -100,9 +100,10 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  padding: 2.8rem;
-  border-radius: 34px;
+  align-items: flex-start;
+  min-height: 100svh;
+  padding: 0 2.8rem 2.8rem;
+  border-radius: 0 0 34px 34px;
   overflow: hidden;
   background:
     linear-gradient(135deg, rgba(22, 22, 24, 0.62), rgba(46, 34, 21, 0.42)),
@@ -110,7 +111,7 @@
   background-size: cover;
   background-position: center;
   animation: copyFloatIn 0.8s ease both;
-  text-align: center;
+  text-align: left;
 }
 
 .hero-copy::before {
@@ -150,12 +151,29 @@
   margin: 1.05rem 0 1rem;
   color: #fff6ea;
   font-family: "Oswald", "Segoe UI", sans-serif;
-  font-size: clamp(1.95rem, 4.15vw, 3.35rem);
-  line-height: 1;
+  font-size: clamp(1.8rem, 3.35vw, 2.8rem);
+  line-height: 0.94;
   letter-spacing: -0.04em;
   text-transform: uppercase;
-  max-width: 18ch;
+  max-width: 30ch;
   animation: textSlideIn 0.85s ease both 0.12s;
+}
+
+.hero-heading-row {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
+  align-items: start;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.hero-alert-wrap {
+  display: flex;
+  justify-content: flex-end;
+  align-self: center;
+  padding-top: 0.8rem;
 }
 
 .hero-subtitle,
@@ -220,11 +238,12 @@
 .hero-alert {
   position: relative;
   z-index: 1;
-  margin-top: 0.8rem;
+  margin-top: 0;
   padding: 0.95rem 1.1rem;
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.14);
   border: 1px solid rgba(255, 255, 255, 0.16);
+  width: 100%;
 }
 
 .hero-alert__label {
@@ -583,6 +602,10 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.product-grid--expanded {
+  padding-top: 1rem;
+}
+
 .product-card__price {
   display: inline-flex;
   width: fit-content;
@@ -594,6 +617,79 @@
   font-size: 0.8rem;
   font-weight: 800;
   letter-spacing: 0.04em;
+}
+
+.products-more {
+  margin-top: 1.25rem;
+}
+
+.products-more__toggle {
+  min-height: 50px;
+  padding: 0.85rem 1.2rem;
+  border: none;
+  border-radius: 18px;
+  background: linear-gradient(135deg, var(--brand-gold), var(--brand-orange));
+  color: #261607;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 16px 30px rgba(245, 123, 31, 0.18);
+}
+
+.products-more__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease, margin-top 0.35s ease;
+  margin-top: 0;
+}
+
+.products-more__panel > div {
+  overflow: hidden;
+}
+
+.products-more__panel.is-open {
+  grid-template-rows: 1fr;
+  margin-top: 1rem;
+}
+
+.product-card--compact {
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.gallery-card {
+  display: grid;
+  align-items: end;
+  min-height: 320px;
+  border-radius: 24px;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+
+.gallery-card__content {
+  display: grid;
+  gap: 0.55rem;
+  padding: 1rem;
+  background: linear-gradient(180deg, rgba(16, 15, 14, 0), rgba(16, 15, 14, 0.72));
+}
+
+.gallery-card__content h3 {
+  margin: 0;
+  color: #fff6ea;
+  font-size: 1.3rem;
+}
+
+.gallery-card__content p {
+  margin: 0;
+  color: rgba(255, 246, 234, 0.9);
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 .equipment-card--light {
@@ -716,6 +812,10 @@
   .hero-grid {
     padding-top: 1.5rem;
   }
+
+  .gallery-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 720px) {
@@ -741,13 +841,46 @@
     border-radius: 26px;
   }
 
+  .hero-copy {
+    min-height: 100svh;
+  }
+
   .hero-title {
     max-width: 100%;
+  }
+
+  .hero-heading-row {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+
+  .hero-alert-wrap {
+    justify-content: flex-start;
+    padding-top: 0;
   }
 
   .hero-icon-wall,
   .trust-card {
     grid-template-columns: 1fr;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(220px, 42vw);
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 0.4rem;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .gallery-card {
+    scroll-snap-align: start;
+  }
+
+  .gallery-more {
+    display: none;
   }
 
   .hero-carousel__thumbs {

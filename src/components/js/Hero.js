@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import "../css/Hero.css";
 import HeroAlerts from "./HeroAlerts";
 import ChatWidget from "./ChatWidget";
-import brandMark from "../../luguma-brandmark.svg";
+import brandMark from "../../Lugumalogo.jpeg";
 
 const services = [
   {
@@ -22,7 +22,7 @@ const services = [
   },
 ];
 
-const products = [
+const featuredProducts = [
   {
     icon: "bi-bricks",
     title: "Concrete blocks",
@@ -41,6 +41,9 @@ const products = [
     price: "From KSh 1,250 per square metre",
     text: "Designed for walkways, compounds, and external surfaces that demand both form and strength.",
   },
+];
+
+const extraProducts = [
   {
     icon: "bi-layout-text-window-reverse",
     title: "Kerbstones",
@@ -58,6 +61,24 @@ const products = [
     title: "Concrete pipes",
     price: "Price on request",
     text: "Available for projects that need size-specific concrete pipe supply and production guidance.",
+  },
+  {
+    icon: "bi-border-width",
+    title: "Fence posts",
+    price: "From KSh 1,100 per piece",
+    text: "Reliable precast fence posts for boundary definition and long-term outdoor use.",
+  },
+  {
+    icon: "bi-app-indicator",
+    title: "Manhole covers and rings",
+    price: "Price on request",
+    text: "Suitable for drainage, sewer, and access chamber works requiring durable precast components.",
+  },
+  {
+    icon: "bi-stop-fill",
+    title: "Road barriers",
+    price: "Price on request",
+    text: "Available for traffic control, safety demarcation, and temporary or long-term project use.",
   },
 ];
 
@@ -115,6 +136,99 @@ const processSteps = [
   },
 ];
 
+const galleryItems = [
+  {
+    title: "Precast concrete production yard",
+    text: "A gallery slot for showing concrete production capacity, organisation, and output quality.",
+    image:
+      "https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&w=1400&q=80",
+  },
+  {
+    title: "Completed paving and surfacing works",
+    text: "Ideal for showing finished paving installations and the standard of Luguma's concrete products on-site.",
+    image:
+      "https://images.unsplash.com/photo-1599707254554-027aeb4deacd?auto=format&fit=crop&w=1400&q=80",
+  },
+  {
+    title: "Drainage and culvert supply",
+    text: "Useful for displaying road works, drainage installations, and culvert product delivery outcomes.",
+    image:
+      "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1400&q=80",
+  },
+  {
+    title: "Construction site support",
+    text: "A visual section for machine hire, active job support, and real-world project execution imagery.",
+    image:
+      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=80",
+  },
+  {
+    title: "Concrete block production",
+    text: "Showcase block output quality and consistency for residential and commercial projects.",
+    image:
+      "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1400&q=80",
+  },
+  {
+    title: "Paving works installation",
+    text: "Display finished paving works and the final surface quality delivered on site.",
+    image:
+      "https://images.unsplash.com/photo-1599707254554-027aeb4deacd?auto=format&fit=crop&w=1400&q=80",
+  },
+  {
+    title: "Drainage channel works",
+    text: "Show completed channel and drainage support works using Luguma concrete products.",
+    image:
+      "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1400&q=80",
+  },
+  {
+    title: "Road kerb installation",
+    text: "Present kerbstone works for roads, compounds, and external finishing projects.",
+    image:
+      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1400&q=80",
+  },
+  {
+    title: "Pipe and culvert dispatch",
+    text: "Showcase product readiness for drainage and infrastructure supply requirements.",
+    image:
+      "https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&w=1400&q=80",
+  },
+  {
+    title: "Concrete slab preparation",
+    text: "Highlight slab production and the quality of Luguma's precast finishing.",
+    image:
+      "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1400&q=80",
+  },
+  {
+    title: "Heavy machine deployment",
+    text: "Use the gallery to show practical machine hire support on active construction projects.",
+    image:
+      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=80",
+  },
+  {
+    title: "Finished compound paving",
+    text: "Display completed paving applications for compounds, driveways, and pathways.",
+    image:
+      "https://images.unsplash.com/photo-1599707254554-027aeb4deacd?auto=format&fit=crop&w=1400&q=80",
+  },
+  {
+    title: "Infrastructure support works",
+    text: "Highlight broader project support delivered through Luguma products and coordination.",
+    image:
+      "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1400&q=80",
+  },
+  {
+    title: "On-site product delivery",
+    text: "Show clean delivery execution and supply readiness for client projects.",
+    image:
+      "https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&w=1400&q=80",
+  },
+  {
+    title: "Precast product finishing",
+    text: "Show the quality of output on visible precast products before dispatch.",
+    image:
+      "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1400&q=80",
+  },
+];
+
 const banners = {
   about:
     "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=80",
@@ -122,6 +236,8 @@ const banners = {
     "https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&w=1400&q=80",
   products:
     "https://images.unsplash.com/photo-1599707254554-027aeb4deacd?auto=format&fit=crop&w=1400&q=80",
+  gallery:
+    "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1400&q=80",
   equipment:
     "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1400&q=80",
   process:
@@ -146,6 +262,10 @@ const SectionHeader = ({ eyebrow, title, text, image, align = "left" }) => (
 );
 
 const Hero = () => {
+  const [showAllProducts, setShowAllProducts] = useState(false);
+  const [showAllGallery, setShowAllGallery] = useState(false);
+  const [isMobileGallery, setIsMobileGallery] = useState(false);
+
   const carouselSlides = useMemo(
     () => [
       {
@@ -170,18 +290,18 @@ const Hero = () => {
         image: banners.products,
       },
       {
+        icon: "bi-images",
+        title: "Gallery",
+        text: "A dedicated section for showing products, completed works, and project highlights.",
+        href: "#gallery",
+        image: banners.gallery,
+      },
+      {
         icon: "bi-truck-front-fill",
         title: "Equipment",
         text: "Machine hire is now displayed as a major service path with its own price-led cards.",
         href: "#equipment",
         image: banners.equipment,
-      },
-      {
-        icon: "bi-diagram-3-fill",
-        title: "Process",
-        text: "The page now guides visitors from interest to quote with a more practical enquiry flow.",
-        href: "#process",
-        image: banners.process,
       },
       {
         icon: "bi-envelope-paper-fill",
@@ -203,6 +323,23 @@ const Hero = () => {
 
     return () => window.clearInterval(interval);
   }, [carouselSlides.length]);
+
+  useEffect(() => {
+    if (typeof window.matchMedia !== "function") {
+      return undefined;
+    }
+
+    const mediaQuery = window.matchMedia("(max-width: 720px)");
+
+    const syncGalleryMode = (event) => {
+      setIsMobileGallery(event.matches);
+    };
+
+    syncGalleryMode(mediaQuery);
+    mediaQuery.addEventListener("change", syncGalleryMode);
+
+    return () => mediaQuery.removeEventListener("change", syncGalleryMode);
+  }, []);
 
   useEffect(() => {
     const elements = Array.from(document.querySelectorAll(".scroll-reveal"));
@@ -241,9 +378,14 @@ const Hero = () => {
         <div className="hero-grid">
           <div className="hero-copy">
             <span className="eyebrow">Luguma Constructions Limited</span>
-            <h1 className="hero-title">
-              Luguma Concrete Products offer high quality concrete products, reliable machine hire, and practical support for real construction projects.
-            </h1>
+            <div className="hero-heading-row">
+              <h1 className="hero-title">
+                Luguma Constructions Limited offer high quality concrete products, reliable machine hire, and practical support for your construction projects.
+              </h1>
+              <div className="hero-alert-wrap">
+                <HeroAlerts />
+              </div>
+            </div>
             <p className="hero-subtitle">
               From concrete blocks and paving units to machine hire and delivery planning, Luguma helps clients source
               the products and support they need to keep projects moving with confidence.
@@ -256,7 +398,6 @@ const Hero = () => {
                 View Product Prices
               </a>
             </div>
-            <HeroAlerts />
           </div>
 
           <div className="hero-showcase">
@@ -380,7 +521,7 @@ const Hero = () => {
           align="left"
         />
         <div className="product-grid product-grid--wide">
-          {products.map((product, index) => (
+          {featuredProducts.map((product, index) => (
             <article className="product-card scroll-reveal" key={product.title} style={{ "--reveal-delay": `${index * 0.06}s` }}>
               <div className="product-card__icon">
                 <i className={`bi ${product.icon}`} aria-hidden="true" />
@@ -390,6 +531,70 @@ const Hero = () => {
               <p>{product.text}</p>
             </article>
           ))}
+        </div>
+        <div className="products-more scroll-reveal">
+          <button
+            type="button"
+            className={`products-more__toggle ${showAllProducts ? "is-open" : ""}`}
+            onClick={() => setShowAllProducts((current) => !current)}
+            aria-expanded={showAllProducts}
+          >
+            {showAllProducts ? "Show Less Products" : "View More Products"}
+          </button>
+          <div className={`products-more__panel ${showAllProducts ? "is-open" : ""}`}>
+            <div className="product-grid product-grid--wide product-grid--expanded">
+              {extraProducts.map((product) => (
+                <article className="product-card product-card--compact" key={product.title}>
+                  <div className="product-card__icon">
+                    <i className={`bi ${product.icon}`} aria-hidden="true" />
+                  </div>
+                  <div className="product-card__price">{product.price}</div>
+                  <h3>{product.title}</h3>
+                  <p>{product.text}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="content-section" id="gallery">
+        <SectionHeader
+          eyebrow="Gallery"
+          title="A showcase of Luguma products, completed works, and project highlights."
+          text="This gallery section gives Luguma a clear place to display concrete products, previous works, and visual proof of project capability."
+          image={banners.gallery}
+          align="right"
+        />
+        <div className="gallery-grid">
+          {(isMobileGallery || showAllGallery
+            ? galleryItems
+            : galleryItems.slice(0, 5)
+          ).map((item, index) => (
+            <article
+              className="gallery-card scroll-reveal"
+              key={item.title}
+              style={{
+                "--reveal-delay": `${index * 0.08}s`,
+                backgroundImage: `linear-gradient(180deg, rgba(25, 23, 20, 0.14), rgba(25, 23, 20, 0.7)), url(${item.image})`,
+              }}
+            >
+              <div className="gallery-card__content">
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div className="products-more gallery-more scroll-reveal">
+          <button
+            type="button"
+            className={`products-more__toggle ${showAllGallery ? "is-open" : ""}`}
+            onClick={() => setShowAllGallery((current) => !current)}
+            aria-expanded={showAllGallery}
+          >
+            {showAllGallery ? "Show Less Gallery" : "View More Gallery"}
+          </button>
         </div>
       </section>
 

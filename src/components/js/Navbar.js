@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../css/Navbar.css";
-import brandMark from "../../luguma-brandmark.svg";
+import brandMark from "../../Lugumalogo.jpeg";
 
 const navLinks = [
   { label: "About", href: "#about", icon: "bi-buildings" },
   { label: "Services", href: "#services", icon: "bi-grid-1x2-fill" },
   { label: "Products", href: "#products", icon: "bi-box-seam" },
+  { label: "Gallery", href: "#gallery", icon: "bi-images" },
   { label: "Equipment", href: "#equipment", icon: "bi-truck" },
   { label: "Process", href: "#process", icon: "bi-diagram-3-fill" },
   { label: "Contact", href: "#contact", icon: "bi-envelope-paper-fill" },
